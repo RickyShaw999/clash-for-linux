@@ -13,10 +13,10 @@
 下载项目
 
 ```bash
-$ git clone https://github.com/wanhebin/clash-for-linux.git
+$ git clone git@github.com:RickyShaw999/clash-for-linux.git
 ```
 
-进入到项目目录，编辑`start.sh`脚本文件，修改变量`URL`的值。
+进入到项目目录，编辑`start.sh`脚本文件，修改变量`URL`的值为你的clash订阅链接。
 
 ```bash
 $ cd clash-for-linux
@@ -38,7 +38,7 @@ $ cd clash-for-linux
 - 运行启动脚本
 
 ```bash
-$ sh start.sh
+$ sudo sh start.sh
 配置文件config.yaml下载成功！                              [  OK  ]
 服务启动成功！                                             [  OK  ]
 系统代理http_proxy/https_proxy设置成功，请在当前窗口执行以下命令加载环境变量:
@@ -71,7 +71,18 @@ https_proxy=http://127.0.0.1:7890
 
 以上步鄹如果正常，说明服务clash程序启动成功，现在就可以体验高速下载github资源了。
 
+### 测试goolge.com 访问
 
+```bash
+$ curl google.com
+<HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
+<TITLE>301 Moved</TITLE></HEAD><BODY>
+<H1>301 Moved</H1>
+The document has moved
+<A HREF="http://www.google.com/">here</A>.
+</BODY></HTML>
+```
+测试结果如上则说明代理生效，可以正常访问google.com。
 
 ### 停止程序
 
@@ -84,7 +95,7 @@ $ cd clash-for-linux
 - 关闭服务
 
 ```bash
-$ sh shutdown.sh
+$ sudo sh shutdown.sh
 服务关闭成功，请在已打开的窗口执行以下命令：
 unset http_proxy
 unset https_proxy

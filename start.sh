@@ -5,15 +5,15 @@
 
 # 判断命令是否正常执行 函数
 if_success() {
-	if [ $? -eq 0 ]; then
-	        action "$1" /bin/true
-	else
-	        action "$2" /bin/false
-	        exit 1
-	fi
+        if [ $? -eq 0 ]; then
+                echo "$1"
+        else
+                echo "$2"
+                exit 1
+        fi
 }
 
-Server_Dir="/home/clash-for-linux"
+Server_Dir=$(pwd)
 Conf_Dir="$Server_Dir/conf"
 Temp_Dir="$Server_Dir/temp"
 Log_Dir="$Server_Dir/logs"
@@ -24,12 +24,12 @@ unset http_proxy
 unset https_proxy
 
 # 拉取更新config.yml文件
-wget -q -O $Temp_Dir/clash.yaml $URL 
+wget -q -O $Temp_Dir/clash.yaml $URL
 Text1="配置文件config.yaml下载成功！"
 Text2="配置文件config.yaml下载失败，退出启动！"
 if_success $Text1 $Text2
 
-# 取出代理相关配置 
+# 取出代理相关配置
 sed -n '/^proxies:/,$p' $Temp_Dir/clash.yaml > $Temp_Dir/proxy.txt
 
 # 合并形成新的config.yaml
@@ -44,4 +44,5 @@ Text4="服务启动失败！"
 if_success $Text3 $Text4
 
 # 添加环境变量
-echo -e "export http_proxy=http://127.0.0.1:7890\nexport https_proxy=http://127.0.0.1:7890" > /etc/profile.d/clash.sh
+echo "export http_proxy=http://127.0.0.1:7890" > /etc/profile.d/clash.sh
+echo "export https_proxy=http://127.0.0.1:7890" >> /etc/profile.d/clash.sh
